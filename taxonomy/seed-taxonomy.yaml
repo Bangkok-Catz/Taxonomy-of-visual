@@ -1,0 +1,184 @@
+# Visual Taxonomy: seed v0.1 (2026-11-23)
+#
+# Our working taxonomy for tagging references and steering generations.
+# Three layers, kept separate on purpose:
+#   1. idea        : the mechanism: how the image makes you think (classify this, not the aesthetic)
+#   2. ingredients : the look: the 2-3 standout decisions that make you feel it
+#   3. register    : whose taste it serves
+# Plus: diagnostics (problem -> technique) and a quality rubric.
+#
+# Informed by Jason Murray's public reels and the public page of his Iris(TM) taxonomy
+# (see research/jason-murray-analysis.md). The operation split follows the same
+# perception-psychology ground he cites (Gestalt, semiotics). Definitions, grouping,
+# prompt patterns and the brand layer are ours. Draft: Pat has not reviewed it yet.
+
+version: 0.1
+status: draft
+
+# ---------------------------------------------------------------------------
+# 1. IDEA LAYER: operation -> technique
+# ---------------------------------------------------------------------------
+operations:
+  differentiate:
+    job: Make one thing stand out from everything else.
+    techniques:
+      pop_out:
+        what: One element differs in colour, value or saturation from a uniform field.
+        prompt_pattern: "a crowd/row of [muted subjects], one [subject] in vivid [brand colour]"
+      silhouette:
+        what: The subject reads by outline alone against a bright or plain ground.
+      chiaroscuro:
+        what: Hard light and deep shadow carve the subject out of darkness.
+      rim_light:
+        what: A thin edge of light separates the subject from a dark background.
+      colour_contrast:
+        what: Complementary or warm/cool opposition makes the subject jump.
+      saturation_block:
+        what: A single block of saturated colour against a desaturated frame.
+      depth_of_field:
+        what: Sharp subject, soft everything else.
+      isolation_in_void:
+        what: Remove distractions; surround the subject with empty space.
+        fixes: too busy
+      scale_disparity:
+        what: Things of dramatically different sizes placed together.
+        prompt_pattern: "a tiny [character] beside a giant [product]"
+      texture_contrast:
+        what: Two surfaces that feel opposite (glossy/rough, soft/metal) side by side.
+      pattern_break:
+        what: Set up a repeating pattern, then interrupt it once; the interruption carries the message.
+        prompt_pattern: "rows of identical [category items], one [our product] different in [colour/pose/state]"
+      juxtaposition:
+        what: Two unrelated things side by side so the viewer compares them.
+
+  group:
+    job: Make separate things read as one unit (Gestalt).
+    techniques:
+      proximity: {what: Things placed close together read as a group.}
+      similarity: {what: Things that share colour, shape or size read as a group.}
+      common_region: {what: A shared boundary or background binds elements.}
+      continuity: {what: The eye follows a continuous line or curve through elements.}
+      closure: {what: The viewer completes a shape that is only partly drawn.}
+      symmetry: {what: Mirrored balance reads as order, calm, ceremony.}
+      figure_ground_reversal:
+        what: Positive and negative space both read as subjects; the gap becomes the subject.
+        fixes: too obvious
+        prompt_pattern: "negative space between [two shapes] forms the silhouette of [second subject]"
+      pareidolia: {what: A face or figure seen in an object or arrangement.}
+
+  direct:
+    job: Control where the eye goes and in what order.
+    techniques:
+      leading_lines: {what: Lines (roads, beams, edges) guide the eye to the subject.}
+      gaze_cue:
+        what: Where people in the image look tells the viewer where to look.
+        fixes: too scattered
+      body_vector:
+        what: Pose or gesture (pointing, reaching) creates direction toward a point.
+      hierarchy: {what: Size, contrast and position rank what is read first, second, third.}
+      reading_path: {what: Layout follows the natural reading order (Z, F, left-to-right).}
+      central_bias: {what: The subject sits dead centre; the frame feels deliberate and iconic.}
+      frame_within_frame:
+        what: A door, window or opening inside the image frames the subject.
+        fixes: too ordinary
+      crop: {what: A tight or unusual crop hides context and creates intrigue.}
+      occlusion:
+        what: One thing hides part of another; what you hide changes what the image is about.
+      forced_perspective: {what: Camera position makes near and far objects interact.}
+
+  associate:
+    job: Borrow meaning the viewer already has (culture, genre, brand).
+    techniques:
+      genre_quotation:
+        what: Borrow the visual codes of a known genre, period, format or work.
+        fixes: visuals don't mean anything
+        prompt_pattern: "[subject] shot in the visual language of [genre/era/format]"
+      symbol_cue: {what: A recognised symbol (heart, crown, flag, hashtag) carries the meaning.}
+      brand_coding:
+        what: A brand's own asset (border, colour, shape, mark) frames or pairs with a subject; a repeatable device.
+        prompt_pattern: "[brand asset] framing / paired with [changing subject]"
+      persona_casting: {what: Who is cast (type, celebrity, look) brings associations.}
+      in_scene_text: {what: Text that lives inside the scene (signs, packaging, handwriting).}
+      visible_facture:
+        what: The making process shows (brush strokes, pen, paper cut, glue); feels human and crafted.
+      visual_lineage:
+        what: Deliberately reference an older work or movement; trace further back to be original.
+
+  infer:
+    job: Make the viewer complete the idea themselves (semantic).
+    techniques:
+      form_substitution:
+        what: One thing takes the shape or texture of another while keeping its own identity.
+        fixes: too literal
+        prompt_pattern: "[product] standing in for [object with the same shape], keeping its own texture"
+      contextual_metaphor:
+        what: An object is used in the role of something else in a scene (car as spotlight, pearls eaten like food).
+        prompt_pattern: "[product] used as [another object's role] in [scene]"
+      semantic_compounding:
+        what: Subjects or symbols combined so together they say more than each alone (passport stamps forming a car).
+        fixes: product shot says nothing
+        prompt_pattern: "the silhouette of [product] made entirely from [many small things that carry the message]"
+      visual_literalism:
+        what: Render the phrase or claim word for word.
+        prompt_pattern: "a literal depiction of the phrase '[idiom or claim]'"
+      personification: {what: An object given human traits, pose or emotion.}
+      displacement: {what: An object placed where it does not belong, so the viewer asks why.}
+      caricature: {what: A defining trait exaggerated until it becomes the message.}
+      temporal_synthesis:
+        what: Several moments collapsed into one frame (Hockney joiner, multiple exposure, sequence).
+        prompt_pattern: "a Hockney-style photo joiner collage of [scene] from overlapping viewpoints"
+      shadow_or_reflection_twist:
+        what: The shadow or reflection shows something other than the object (what it could be).
+
+# ---------------------------------------------------------------------------
+# 2. INGREDIENT LAYER: the look (pick 2-3 standouts, restrain the rest)
+# ---------------------------------------------------------------------------
+ingredients:
+  lighting: [hard_flash, soft_window, chiaroscuro, rim, practical_in_scene, golden_hour, overcast_flat, neon_coloured]
+  colour: [limited_palette, monochrome, complementary, warm_cool_split, pastel, saturated_pop, desaturated_film]
+  texture_finish: [film_grain, halftone, paper_cut, gouache, glossy_cgi, risograph, scanned_print]
+  medium: [photography, illustration, cgi_3d, collage, painting, mixed_media, stop_motion]
+  camera: [macro, wide_environmental, top_down, low_angle, eye_level_portrait, telephoto_compressed]
+  depth: [shallow_dof, deep_focus]
+  type_lettering: [handwritten, blocky_sans, serif_editorial, cut_out_letters, no_text]
+  casting: [real_people, models, character_mascot, hands_only, no_people]
+  set_props: [studio_seamless, practical_set, real_location, miniature]
+  motion: [choreography, still, slow_push, handheld]   # video only
+  sound: [music_bed, voiceover, foley_only]           # video only
+
+# ---------------------------------------------------------------------------
+# 3. REGISTER: whose taste (taste is a spectrum, not a yes/no)
+# ---------------------------------------------------------------------------
+registers:
+  mainstream: Widest net; safe; unlocks scale.
+  cultural: Owned by a community's lived experience; serve and amplify it, don't claim it.
+  counter: Built on rejecting what everyone wants; tends to become a collective.
+  elite: Criteria held by access or privilege; mainstream aspires to it.
+  commercial: Aspiration mixed with something familiar and inviting, aimed at a business goal.
+
+# ---------------------------------------------------------------------------
+# DIAGNOSTICS: symptom -> techniques to try (from the reels, plus our additions)
+# ---------------------------------------------------------------------------
+diagnostics:
+  too ordinary: [frame_within_frame, crop, displacement]
+  too scattered: [gaze_cue, leading_lines, body_vector]
+  too busy: [isolation_in_void, depth_of_field, saturation_block]
+  too obvious: [figure_ground_reversal, occlusion, closure]
+  visuals don't mean anything: [genre_quotation, semantic_compounding, visual_literalism]
+  too literal: [form_substitution, contextual_metaphor]
+  product shot says nothing: [semantic_compounding, form_substitution, contextual_metaphor, pattern_break]
+  looks like every competitor: [pattern_break, visual_lineage, scale_disparity]
+  need to show time or process: [temporal_synthesis, visible_facture]
+  copy carries the message: [visible_facture, in_scene_text]   # stay on the "feeling" side; make one ingredient carry it
+
+# ---------------------------------------------------------------------------
+# QUALITY RUBRIC: universal checks (brand "good" comes from Pat's approvals)
+# ---------------------------------------------------------------------------
+rubric:
+  removal_test: Name the technique. Remove it. Does the message disappear? If not, there is no idea yet.
+  restraint: 2-3 standout ingredients; everything else serves them.
+  tension: At least two ingredients pull against each other, without snapping.
+  cohesion: No element breaks the palette or feel.
+  lineage: You can trace where it comes from, and it is not too close to a recent example.
+  executable: You know who or which model/style card can make it.
+  register_fit: It serves the brand's chosen register.
