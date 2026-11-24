@@ -137,7 +137,7 @@ Film-still databases (FilmGrab, ShotDeck, FRAMESET, Film Shot Cafe), Are.na (sor
 
 ## 7. What this means for your system
 
-1. **Tag the mechanism separately from the look.** Your Higgsfield style cards (flash editorial, paper-cut navy and gold, halftone cut-out collage, green and gold banner) are *ingredient* recipes. What's missing is the *idea* layer: which technique carries the message. Keep both, as separate fields.
+1. **Tag the mechanism separately from the look.** Style presets and look recipes (lighting, palette, medium) are *ingredient* recipes. What's missing is the *idea* layer: which technique carries the message. Keep both, as separate fields.
 2. **Don't let the model decide "good taste".** By his own framing taste is a spectrum, not a verdict. Let the model *describe* (techniques, ingredients, register). "Good" comes from your approve/reject per brand, so each brand builds its own taste profile. That's his "save what you like, reject what you don't, then name the ingredient" loop, automated.
 3. **Use the removal test as the universal quality check.** "Name the technique, remove it: does the message disappear?" If not, the image has no idea yet. This works for scoring generations too.
 4. **Turn diagnostics into generation moves.** His "too X? try Y" table is a ready-made prompt-revision tool: a generation comes back "too busy", so re-prompt with *isolation in void*. It's in `taxonomy/seed-taxonomy.yaml` under `diagnostics`.
@@ -150,14 +150,14 @@ Film-still databases (FilmGrab, ShotDeck, FRAMESET, Film Shot Cafe), Are.na (sor
   - *Contextual metaphor*: a butter block on jeweller's velvet, in a ring box (butter as a luxury object).
   - *Pattern break*: rows of identical pale blocks, one golden VG block.
   - *Scale disparity*: VG Butler carrying a block twice his size.
-  - *Isolation in void + chiaroscuro*: the existing flash-editorial card, now with a named job.
+  - *Isolation in void + chiaroscuro*: one block under hard flash on a dark ground, so the look has a named job.
 - **Gelato:**
   - *Form substitution*: scoops standing in for hot-air balloons or a setting sun.
   - *Occlusion*: a cone hiding a face, so the product becomes the face.
   - *Gaze cue*: everyone in frame looking at the counter.
   - *Visual literalism*: on a claim like "melts in your mouth".
 - **Personal brand:**
-  - *Genre quotation*: you already borrow newspaper/documentary codes with the halftone collage.
+  - *Genre quotation*: borrow newspaper or documentary codes (halftone, column grids, captions).
   - *Visible facture*: show the process.
   - *A visual device*: one brand mark paired with a changing subject, as a recurring series format, the way he runs *The Theory of Taste*.
 
@@ -183,10 +183,10 @@ What it says:
 
 ## 9. Liquid model fit (for the tagging step)
 
-- **Model:** Liquid **LFM3-VL-2B** (about 1.9B parameters; Liquid reports it beats LFM2.5-VL-3B on their 62-benchmark average, which hasn't been independently checked; first LFM vision model to accept video). GGUF for llama.cpp, needs build b11960 or newer. **Your Mac already has llama.cpp b11960**, the one you use for LFM3-1.7B in LeadPulse.
-- **Fits your M1 with 8 GB:** a Q4 model plus an F16 vision projector stay well under memory. Speed per image is unmeasured.
+- **Model:** Liquid **LFM3-VL-2B** (about 1.9B parameters; Liquid reports it beats LFM2.5-VL-3B on their 62-benchmark average, which hasn't been independently checked; first LFM vision model to accept video). GGUF for llama.cpp, needs build b11960 or newer.
+- **Small enough for a laptop:** a Q4 model plus an F16 vision projector take a few GB of memory. Speed per image is unmeasured.
 - **Expect:** good at the *visible* layer (lighting, palette, medium, depth of field, faces and gaze, text present, composition). Weaker at the *inferential* layer (compounding, contextual metaphor, lineage), which needs world knowledge and reasoning.
-- **So:** ask yes/no per technique with "what in the image shows it", not "name the technique". Send low-confidence calls to a review queue. Hand-label about 100 images as a gold set and measure before trusting it, the same way LFM3 was proven on LeadPulse.
+- **So:** ask yes/no per technique with "what in the image shows it", not "name the technique". Send low-confidence calls to a review queue. Hand-label about 100 images as a gold set and measure before trusting it.
 - **For "find similar":** add an image-embedding model (CLIP/SigLIP family). LFM3-VL describes images but doesn't produce embeddings.
 
 Sources: [TikTok @jason_swet](https://www.tiktok.com/@jason_swet) · [YouTube @jason_swet](https://www.youtube.com/@jason_swet) · [jasonmurray.com/links](https://www.jasonmurray.com/links/) · [Iris](https://visuals.modernartdirection.com/home) · [Liquid AI: LFM3](https://www.liquid.ai/blog/lfm3) · [LFM3-VL-2B model card](https://huggingface.co/LiquidAI/LFM3-VL-2B) · [Liquid docs: llama.cpp vision](https://docs.liquid.ai/deployment/on-device/llama-cpp/multimodal)
